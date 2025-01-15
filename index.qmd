@@ -1,5 +1,7 @@
 ---
-title: "Classifying Age Groups with Health and Nutritional Data: A Step Toward Smarter Public Health Programs"
+title: "Classifying Age Groups with Health Data: A Step Toward Smarter Public Health Programs"
+author: Forgive Agbesi
+date: 2025-01-15
 listing:
   contents: posts
   sort: "date desc"
@@ -9,6 +11,159 @@ listing:
   filter-ui: false
 page-layout: full
 title-block-banner: true
+bibliography: references.bib
+execute:
+    echo: false
 ---
 
+```{python}
+import pandas as pd
+from IPython.display import Markdown, display
+from tabulate import tabulate
+import pickle
+import warnings
+warnings.filterwarnings("ignore", category=UserWarning, module="sklearn.base")
+
+```
+
+## Abstract
+
+This blog delves into the use of machine learning classification models specifically Logistic Regression, to predict age groups (adults versus seniors) based on health data. By applying Logistic Regression, we explored how these models can be leveraged to understand age-related health patterns, an essential task for designing more targeted public health interventions. Although the model showed initial promise, its effectiveness was limited by class imbalance, with most predictions falling into the adult category. We also explored solutions such as class weighting to improve balance and refine predictions. Despite this, the model's accuracy for predicting seniors remained low in terms of precision and recall, indicating there is still room for improvement. Optimizing hyperparameters and focusing on metrics like precision and recall rather than overall accuracy could yield better results. Ultimately, this analysis demonstrates the potential of machine learning to inform public health strategies, providing actionable insights for more personalized and effective care for aging populations.
+
+
+## Introduction
+As we grow older, our health needs evolve in ways that profoundly impact our quality of life. Imagine if we could leverage data to predict these changes, leading to more personalized and effective public health programs. This analysis explores whether health data can distinguish between adults (under 65) and seniors (65+), offering insights into how we might improve public health initiatives for aging populations.
+
+The dataset used to answer this question is the National Health and Nutrition Survey 2013-2014 (NHANES) Age Prediction Subset (@NHANES2019). It was originally prepared for a research paper on predicting diabetes and cardiovascular disease in patients (@DinhMiertschin2016 and @MukhtarAzwari2021). The dataset's stated purpose was to assess the health and nutritional status of adults and children in the United States (@Papazafiropoulou2024), however respondents were classified as either Adults (respondents under 65 years of age) or Seniors (respondents 65 years of age or older). Respondents were located in the United States and provided data through interviews, physical examinations, and laboratory tests to the National Center for Health Statistics (NCHS) (part of the Centers for Disease Control and Prevention (CDC)). While the dataset has been used in previous research on diabetes and cardiovascular disease, this analysis focuses specifically on age prediction. By examining patterns in health data, we aim to evaluate the feasibility of machine learning models for classifying age groups and identify potential avenues for improving public health strategies.
+
+This analysis focuses on predictive modeling, addressing challenges such as class imbalance and model performance metrics like precision and recall. While we concentrate on age classification, exploring the factors most predictive of age lies outside the scope of this study. By narrowing our focus, we aim to provide actionable insights that inform future work in age-related health analytics.
+
+
+## Methods & Results
+
+### Data Sources  
+This dataset was sourced from the [NHANES], a large-scale public health initiative that collects health and nutritional data from a representative sample of adults and seniors in the U.S. Data were collected through a combination of clinical measurements and self-reported surveys between [years]. The dataset contains information on demographic, physical activity, and metabolic health factors.  
+
+
+### Conducting EDA on the training set
+
+```{python}
+X_train = pd.read_csv('data/processed/X_train.csv')
+n_obs = X_train.shape[0]
+summary_table = X_train.describe().round(2)
+bmi_25 = float(summary_table.loc['25%', 'bmi'])
+bmi_75 = float(summary_table.loc['75%', 'bmi'])
+bmi_max = float(summary_table.loc['max', 'bmi'])
+```
+
+```{python}
+#| label: tbl-summary-stats
+#| tbl-cap: Summary Statistics
+Markdown(summary_table.to_markdown())
+
+```
+
+The training data has `{python} n_obs` observations. Since gender, physical_activity, and diabetic features were categorical, only the mean and standard deviation from the table above were relevant for those columns. Body mass index values below 18 are considered underweight, and values over 40 are considered severely obese. We observed that the middle 50% of values fall between `{python} bmi_25` & `{python} bmi_75`, though the max was `{python} bmi_max`, which is concerningly high. Blood glucose, oral, and blood insulin have their own ranges, so it was necessary to standardize these variables before fitting our model.
+
+### Visualization for EDA
+
+The distributions in @fig-feat-distributions below show class imbalance, with very few seniors relative to adults in our dataset. Across numeric variables, mode values for seniors were less pronounced than they were for adults, though ranges seemed similar. Seniors seemed to have higher oral values and lower blood insulin values than adults. 
+
+![Feature Distributions by Age Group (groups are not stacked)](../results/figures/eda_histogram.png){#fig-feat-distributions width=80%}
+
+### Preprocessing Steps 
+To prepare the data for analysis, we applied several cleaning and transformation steps:  
+Column Renaming: Variable names were updated to be descriptive (e.g., 'RIDAGEYR' → 'Age') for clarity.  
+Invalid Values: Observations with undocumented values in 'physical_activity' and 'diabetic' were removed to ensure consistency with the dataset's metadata.  
+One-Hot Encoding: Categorical variables (e.g., gender, physical_activity) were converted into binary indicators to enable their use in machine learning models.  
+Standardization: Numeric variables (e.g., BMI, blood glucose) were standardized to ensure comparability across features with different scales.  
+
+### Analytical Approach  
+We tested three models to classify respondents as adults or seniors based on health and nutrition data:  
+Dummy Classifier: A baseline model predicting the majority class.  
+Logistic Regression: Selected for its simplicity, interpretability, and alignment with healthcare applications.  
+Support Vector Classifier (SVC): Included to explore the potential of non-linear relationships in improving classification.  
+Performance was evaluated using metrics like precision, recall, F1-score, and AUC-PR, chosen for their ability to assess model performance in imbalanced datasets.  
+
+
+```{python}
+#| label: tbl-cv-dummy
+#| tbl-cap: Mean cross validation scores
+
+results = pd.read_csv('results/tables/model_cv_score.csv')
+Markdown(results.to_markdown())
+
+```
+
+
+
+### Testing Best Model on Test Data
+
+Since logistic regression had the best mean cross validation score, we selected it as our final model.
+
+```{python}
+best = pickle.load(open('results/models/LogisticRegression_classifier_pipeline.pickle', 'rb'))
+
+X_test = pd.read_csv('data/processed/X_test.csv')
+y_test = pd.read_csv('data/processed/y_test.csv')
+
+test_score = round(best.score(X_test,y_test), 3)
+test_score_rough = round(best.score(X_test,y_test), 2) * 100
+```
+
+The model's accuracy on test data was `{python} test_score`.
+
+### Tools
+The following software packages were used in this project: @Chorev_Deepchecks_A_Library_2022, @2020NumPy-Array, @niels_bantilan-proc-scipy-2020, @Pedregosa_Scikit-learn_Machine_Learning_2011, @The_pandas_development_team_pandas-dev_pandas_Pandas, @VanderPlas2018, @python.
+
+## Results
+
+```{python}
+from sklearn.metrics import precision_score, recall_score, f1_score
+y_pred = best.predict(X_test)
+
+# Calculate precision, recall, and F1-score
+precision = round(precision_score(y_test, y_pred, pos_label='Senior') ,3) 
+recall = round(recall_score(y_test, y_pred, pos_label='Senior'),3)
+f1 = round(f1_score(y_test, y_pred, pos_label='Senior'),3)
+```
+
+The model's precision score was  `{python} precision`, recall score was `{python} recall` 
+and f1 score was `{python} f1`.
+
+### Visualizing model performance
+
+![Confusion matrix of the best model on test data](../results/figures/Confusion_matrix.png){#fig-confusion-matrix}
+
+The confusion matrix (@fig-confusion-matrix) showed that while the model score is `{python} test_score`, it did very poorly at recall ( `{python} recall` ) and quite poorly at precision (`{python} precision` ).
+
+![ROC curve of the best model on test data](../results/figures/ROC.png){#fig-roc}
+
+This performance was reflected in the ROC curve above (@fig-roc). 
+While it could differentiate the positive class "Senior" from the negative class to some extent, the model struggled to achieve both high true positive rates and low false positive rates. An AUC of 0.75 means that there is a 75% chance that a randomly chosen "Senior" will be ranked higher than a randomly chosen "Adult" by the model. In other words, the model is correctly distinguishing between "Senior" and "Adult" 75% of the time. With the AUC as 0.75, it means that 75% of the time, a randomly chosen "Senior" will have a higher predicted probability of being "Senior" than a randomly chosen "Adult". This is a good indication that the model is better than random guessing, especially in distinguishing "Senior" from "Adult".
+
+## Discussion  
+
+### Summary of Findings:  
+Our analysis sought to determine whether health and nutritional data could be used to predict whether individuals are adults (under 65) or seniors (65+). The results showed that age group prediction is feasible with moderate accuracy (~`{python} test_score_rough`%), but significant room for improvement remains. The initial high accuracy was largely due to class imbalance, with the model heavily favoring adults, the majority class. This highlighted the need for balanced metrics like F1 score to better evaluate the model's performance.  
+
+### Implications:  
+These findings indicate that predictive models can be a valuable tool for identifying age-related health patterns, which could inform public health strategies. However, the model's current limitations—particularly its difficulty in identifying seniors—underscore the need for further refinement before it can be used in practice.  
+
+### Recommendations: 
+1. Improving Data Handling: Address outliers in features like "physical_activity" and "diabetic" with deeper investigation rather than outright removal. Expand EDA to include pairwise correlations and feature importance analysis to reduce redundancy and engineer meaningful features.  
+2. **Model Enhancement:** Incorporate hyperparameter tuning (e.g., tuning `C` in Logistic Regression) and use class weighting to address imbalance. Shift focus to metrics like precision, recall, and F1 score to ensure balanced performance.  
+3. **Alternative Modeling Approaches:** Explore non-linear models, such as random forests, to capture potential interactions between health and nutritional factors that Logistic Regression may miss.  
+4. **Future Research:** Investigate the most predictive health and nutritional factors for age classification. This could lead to actionable insights for tailoring public health programs to specific age groups.  
+
+### Limitations and Future Work:  
+The analysis faced several limitations, including oversimplified data cleaning and limited feature exploration during EDA. 
+Logistic Regression, while interpretable, may not fully capture the complexity of age-related health patterns. 
+Future work should focus on deeper feature analysis, advanced modeling techniques, hyper parameter tuning and incorporating a broader range of health and demographic variables.  
+
+### Conclusion: 
+Data science is inherently iterative, and this analysis represents a step toward leveraging health data for age classification. By addressing the outlined limitations and exploring more advanced methods, we can better understand age-related health needs and design interventions that improve health outcomes for aging populations.
+
+
+## References
 

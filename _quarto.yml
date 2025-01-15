@@ -1,8 +1,9 @@
 project:
   type: website
+  output-dir: docs
 
 website:
-  title: "Classifying Age Groups with Health and Nutritional Data: A Step Toward Smarter Public Health Programs"
+  title: "Classifying Age Groups with Health Data: A Step Toward Smarter Public Health Programs"
   navbar:
     right:
       - about.qmd
