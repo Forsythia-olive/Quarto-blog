@@ -133,14 +133,60 @@ and f1 score was `{python} f1`.
 
 ### Visualizing model performance
 
-![Confusion matrix of the best model on test data](../results/figures/Confusion_matrix.png){#fig-confusion-matrix}
+#### Confusion Matrix Analysis
+The confusion matrix below illustrates how the model performed on the test data:
+
+![Confusion matrix of the best model on test data](results/figures/Confusion_matrix.png){#fig-confusion-matrix}
+
+**Key Observations:**
+- **False Positives (65):** A significant number of "Adults" were classified as "Seniors," contributing to the low precision score.
+- **False Negatives (175):** Although fewer than the false positives, these instances highlight the need to improve recall.
 
 The confusion matrix (@fig-confusion-matrix) showed that while the model score is `{python} test_score`, it did very poorly at recall ( `{python} recall` ) and quite poorly at precision (`{python} precision` ).
 
-![ROC curve of the best model on test data](../results/figures/ROC.png){#fig-roc}
+#### ROC Curve and AUC
+
+The Receiver Operating Characteristic (ROC) curve for the model is presented below, with an Area Under the Curve (AUC) of **0.75**.
+
+![ROC curve of the best model on test data](results/figures/ROC.png){#fig-roc}
 
 This performance was reflected in the ROC curve above (@fig-roc). 
-While it could differentiate the positive class "Senior" from the negative class to some extent, the model struggled to achieve both high true positive rates and low false positive rates. An AUC of 0.75 means that there is a 75% chance that a randomly chosen "Senior" will be ranked higher than a randomly chosen "Adult" by the model. In other words, the model is correctly distinguishing between "Senior" and "Adult" 75% of the time. With the AUC as 0.75, it means that 75% of the time, a randomly chosen "Senior" will have a higher predicted probability of being "Senior" than a randomly chosen "Adult". This is a good indication that the model is better than random guessing, especially in distinguishing "Senior" from "Adult".
+- **True Positive Rate (TPR)**: Measures the proportion of correctly identified "Seniors."
+- **False Positive Rate (FPR):** Measures the proportion of "Adults" incorrectly classified as "Seniors."
+- **AUC Interpretation:** The AUC of 0.75 means that 75% of the time, the model ranks a randomly chosen "Senior" higher than a randomly chosen "Adult." While this shows promise, there's room for improvement.
+
+### **Model Performance Metrics**
+The model's performance on the test dataset is summarized in the table below:
+
+| **Metric**       | **Value** |
+|-------------------|-----------|
+| **Accuracy**      | 0.725     |
+| **Precision**     | 0.34      |
+| **Recall**        | 0.645     |
+| **F1 Score**      | 0.445     |
+| **AUC-ROC**       | 0.75      |
+
+#### **Key Insights:**
+- **Accuracy (0.725):** Indicates that the model is correct about 72.5% of the time.
+- **Precision (0.34):** Shows a high rate of false positives, meaning many "Adults" are mistakenly classified as "Seniors."
+- **Recall (0.645):** The model successfully identifies 64.5% of actual "Seniors."
+- **F1 Score (0.445):** Reflects the imbalance between precision and recall, emphasizing the need for further model tuning.
+- **AUC-ROC (0.75):** Demonstrates that the model is better than random guessing, with a 75% chance of correctly ranking "Seniors" higher than "Adults."
+
+
+### Key Takeaways from the Results
+1. **Strengths:** 
+   - AUC of 0.75 demonstrates the model's ability to differentiate between "Seniors" and "Adults."
+   - Recall is reasonably high, capturing most "Senior" cases.
+
+2. **Weaknesses:** 
+   - Low precision (0.34) due to a high false-positive rate.
+   - F1 score (0.445) indicates a need for better balancing of precision and recall.
+
+3. **Visual Evidence:**
+   - The confusion matrix highlights areas where misclassifications occur.
+   - The ROC curve underscores the model's overall classification capabilities, but also its limitations in balancing true positives and false positives.
+
 
 ## Discussion  
 
@@ -151,7 +197,7 @@ Our analysis sought to determine whether health and nutritional data could be us
 These findings indicate that predictive models can be a valuable tool for identifying age-related health patterns, which could inform public health strategies. However, the model's current limitations—particularly its difficulty in identifying seniors—underscore the need for further refinement before it can be used in practice.  
 
 ### Recommendations: 
-1. Improving Data Handling: Address outliers in features like "physical_activity" and "diabetic" with deeper investigation rather than outright removal. Expand EDA to include pairwise correlations and feature importance analysis to reduce redundancy and engineer meaningful features.  
+1. **Improving Data Handling:** Address outliers in features like "physical_activity" and "diabetic" with deeper investigation rather than outright removal. Expand EDA to include pairwise correlations and feature importance analysis to reduce redundancy and engineer meaningful features.  
 2. **Model Enhancement:** Incorporate hyperparameter tuning (e.g., tuning `C` in Logistic Regression) and use class weighting to address imbalance. Shift focus to metrics like precision, recall, and F1 score to ensure balanced performance.  
 3. **Alternative Modeling Approaches:** Explore non-linear models, such as random forests, to capture potential interactions between health and nutritional factors that Logistic Regression may miss.  
 4. **Future Research:** Investigate the most predictive health and nutritional factors for age classification. This could lead to actionable insights for tailoring public health programs to specific age groups.  

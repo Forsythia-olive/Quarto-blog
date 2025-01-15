@@ -460,28 +460,101 @@ Table&nbsp;2: Mean cross validation scores
 <p>The model’s precision score was 0.34, recall score was 0.645 and f1 score was 0.445.</p>
 <section id="visualizing-model-performance" class="level3">
 <h3 class="anchored" data-anchor-id="visualizing-model-performance">Visualizing model performance</h3>
+<section id="confusion-matrix-analysis" class="level4">
+<h4 class="anchored" data-anchor-id="confusion-matrix-analysis">Confusion Matrix Analysis</h4>
+<p>The confusion matrix below illustrates how the model performed on the test data:</p>
 <div id="fig-confusion-matrix" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-confusion-matrix-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="../results/figures/Confusion_matrix.png" class="img-fluid figure-img">
+<img src="results/figures/Confusion_matrix.png" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-confusion-matrix-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;2: Confusion matrix of the best model on test data
 </figcaption>
 </figure>
 </div>
+<p><strong>Key Observations:</strong> - <strong>False Positives (65):</strong> A significant number of “Adults” were classified as “Seniors,” contributing to the low precision score. - <strong>False Negatives (175):</strong> Although fewer than the false positives, these instances highlight the need to improve recall.</p>
 <p>The confusion matrix (<a href="#fig-confusion-matrix" class="quarto-xref">Figure&nbsp;2</a>) showed that while the model score is 0.725, it did very poorly at recall ( 0.645 ) and quite poorly at precision (0.34 ).</p>
+</section>
+<section id="roc-curve-and-auc" class="level4">
+<h4 class="anchored" data-anchor-id="roc-curve-and-auc">ROC Curve and AUC</h4>
+<p>The Receiver Operating Characteristic (ROC) curve for the model is presented below, with an Area Under the Curve (AUC) of <strong>0.75</strong>.</p>
 <div id="fig-roc" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-roc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="../results/figures/ROC.png" class="img-fluid figure-img">
+<img src="results/figures/ROC.png" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-roc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;3: ROC curve of the best model on test data
 </figcaption>
 </figure>
 </div>
-<p>This performance was reflected in the ROC curve above (<a href="#fig-roc" class="quarto-xref">Figure&nbsp;3</a>). While it could differentiate the positive class “Senior” from the negative class to some extent, the model struggled to achieve both high true positive rates and low false positive rates. An AUC of 0.75 means that there is a 75% chance that a randomly chosen “Senior” will be ranked higher than a randomly chosen “Adult” by the model. In other words, the model is correctly distinguishing between “Senior” and “Adult” 75% of the time. With the AUC as 0.75, it means that 75% of the time, a randomly chosen “Senior” will have a higher predicted probability of being “Senior” than a randomly chosen “Adult”. This is a good indication that the model is better than random guessing, especially in distinguishing “Senior” from “Adult”.</p>
+<p>This performance was reflected in the ROC curve above (<a href="#fig-roc" class="quarto-xref">Figure&nbsp;3</a>). - <strong>True Positive Rate (TPR)</strong>: Measures the proportion of correctly identified “Seniors.” - <strong>False Positive Rate (FPR):</strong> Measures the proportion of “Adults” incorrectly classified as “Seniors.” - <strong>AUC Interpretation:</strong> The AUC of 0.75 means that 75% of the time, the model ranks a randomly chosen “Senior” higher than a randomly chosen “Adult.” While this shows promise, there’s room for improvement.</p>
+</section>
+</section>
+<section id="model-performance-metrics" class="level3">
+<h3 class="anchored" data-anchor-id="model-performance-metrics"><strong>Model Performance Metrics</strong></h3>
+<p>The model’s performance on the test dataset is summarized in the table below:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th><strong>Metric</strong></th>
+<th><strong>Value</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Accuracy</strong></td>
+<td>0.725</td>
+</tr>
+<tr class="even">
+<td><strong>Precision</strong></td>
+<td>0.34</td>
+</tr>
+<tr class="odd">
+<td><strong>Recall</strong></td>
+<td>0.645</td>
+</tr>
+<tr class="even">
+<td><strong>F1 Score</strong></td>
+<td>0.445</td>
+</tr>
+<tr class="odd">
+<td><strong>AUC-ROC</strong></td>
+<td>0.75</td>
+</tr>
+</tbody>
+</table>
+<section id="key-insights" class="level4">
+<h4 class="anchored" data-anchor-id="key-insights"><strong>Key Insights:</strong></h4>
+<ul>
+<li><strong>Accuracy (0.725):</strong> Indicates that the model is correct about 72.5% of the time.</li>
+<li><strong>Precision (0.34):</strong> Shows a high rate of false positives, meaning many “Adults” are mistakenly classified as “Seniors.”</li>
+<li><strong>Recall (0.645):</strong> The model successfully identifies 64.5% of actual “Seniors.”</li>
+<li><strong>F1 Score (0.445):</strong> Reflects the imbalance between precision and recall, emphasizing the need for further model tuning.</li>
+<li><strong>AUC-ROC (0.75):</strong> Demonstrates that the model is better than random guessing, with a 75% chance of correctly ranking “Seniors” higher than “Adults.”</li>
+</ul>
+</section>
+</section>
+<section id="key-takeaways-from-the-results" class="level3">
+<h3 class="anchored" data-anchor-id="key-takeaways-from-the-results">Key Takeaways from the Results</h3>
+<ol type="1">
+<li><strong>Strengths:</strong>
+<ul>
+<li>AUC of 0.75 demonstrates the model’s ability to differentiate between “Seniors” and “Adults.”</li>
+<li>Recall is reasonably high, capturing most “Senior” cases.</li>
+</ul></li>
+<li><strong>Weaknesses:</strong>
+<ul>
+<li>Low precision (0.34) due to a high false-positive rate.</li>
+<li>F1 score (0.445) indicates a need for better balancing of precision and recall.</li>
+</ul></li>
+<li><strong>Visual Evidence:</strong>
+<ul>
+<li>The confusion matrix highlights areas where misclassifications occur.</li>
+<li>The ROC curve underscores the model’s overall classification capabilities, but also its limitations in balancing true positives and false positives.</li>
+</ul></li>
+</ol>
 </section>
 </section>
 <section id="discussion" class="level2">
@@ -497,7 +570,7 @@ Figure&nbsp;3: ROC curve of the best model on test data
 <section id="recommendations" class="level3">
 <h3 class="anchored" data-anchor-id="recommendations">Recommendations:</h3>
 <ol type="1">
-<li>Improving Data Handling: Address outliers in features like “physical_activity” and “diabetic” with deeper investigation rather than outright removal. Expand EDA to include pairwise correlations and feature importance analysis to reduce redundancy and engineer meaningful features.<br>
+<li><strong>Improving Data Handling:</strong> Address outliers in features like “physical_activity” and “diabetic” with deeper investigation rather than outright removal. Expand EDA to include pairwise correlations and feature importance analysis to reduce redundancy and engineer meaningful features.<br>
 </li>
 <li><strong>Model Enhancement:</strong> Incorporate hyperparameter tuning (e.g., tuning <code>C</code> in Logistic Regression) and use class weighting to address imbalance. Shift focus to metrics like precision, recall, and F1 score to ensure balanced performance.<br>
 </li>
