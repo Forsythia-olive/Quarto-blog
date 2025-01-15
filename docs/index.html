@@ -100,9 +100,9 @@ div.csl-indent {
     }
 
     const options = {
-      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      valueNames: ['listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
       
-      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
+      searchColumns: ["listing-categories"],
     };
 
     window['quarto-listings'] = window['quarto-listings'] || {};
@@ -225,7 +225,7 @@ window.Quarto = {
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(2)</span></div><div class="category" data-category="analysis">analysis <span class="quarto-category-count">(1)</span></div><div class="category" data-category="code">code <span class="quarto-category-count">(1)</span></div><div class="category" data-category="news">news <span class="quarto-category-count">(2)</span></div></div></div>
+    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(0)</span></div></div></div>
 <!-- main -->
 <main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
 
@@ -258,7 +258,7 @@ window.Quarto = {
 Table&nbsp;1: Summary Statistics
 </figcaption>
 <div aria-describedby="tbl-summary-stats-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="3">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="9">
 <table class="do-not-create-environment cell caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 6%">
@@ -378,7 +378,7 @@ Table&nbsp;1: Summary Statistics
 <div id="fig-feat-distributions" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-feat-distributions-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="../results/figures/eda_histogram.png" class="img-fluid figure-img" style="width:80.0%">
+<img src="results/figures/eda_histogram.png" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-feat-distributions-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;1: Feature Distributions by Age Group (groups are not stacked)
@@ -408,7 +408,7 @@ Performance was evaluated using metrics like precision, recall, F1-score, and AU
 Table&nbsp;2: Mean cross validation scores
 </figcaption>
 <div aria-describedby="tbl-cv-dummy-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="4">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="10">
 <table class="do-not-create-environment cell caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
@@ -452,7 +452,7 @@ Table&nbsp;2: Mean cross validation scores
 </section>
 <section id="tools" class="level3">
 <h3 class="anchored" data-anchor-id="tools">Tools</h3>
-<p>The following software packages were used in this project: <span class="citation" data-cites="Chorev_Deepchecks_A_Library_2022">Chorev et al. (<a href="#ref-Chorev_Deepchecks_A_Library_2022" role="doc-biblioref">2022</a>)</span>, <span class="citation" data-cites="2020NumPy-Array">Harris et al. (<a href="#ref-2020NumPy-Array" role="doc-biblioref">2020</a>)</span>, <span class="citation" data-cites="niels_bantilan-proc-scipy-2020">Bantilan (<a href="#ref-niels_bantilan-proc-scipy-2020" role="doc-biblioref">2020</a>)</span>, <span class="citation" data-cites="Pedregosa_Scikit-learn_Machine_Learning_2011">Pedregosa et al. (<a href="#ref-Pedregosa_Scikit-learn_Machine_Learning_2011" role="doc-biblioref">2011</a>)</span>, <span class="citation" data-cites="The_pandas_development_team_pandas-dev_pandas_Pandas">The pandas development team (<a href="#ref-The_pandas_development_team_pandas-dev_pandas_Pandas" role="doc-biblioref">n.d.</a>)</span>, <span class="citation" data-cites="VanderPlas2018">VanderPlas et al. (<a href="#ref-VanderPlas2018" role="doc-biblioref">2018</a>)</span>, <span class="citation" data-cites="python">Van Rossum and Drake (<a href="#ref-python" role="doc-biblioref">2024</a>)</span>.</p>
+<p>The following software packages were used in this project: Deepcheck (<span class="citation" data-cites="Chorev_Deepchecks_A_Library_2022">Chorev et al. (<a href="#ref-Chorev_Deepchecks_A_Library_2022" role="doc-biblioref">2022</a>)</span>), Numpy (<span class="citation" data-cites="2020NumPy-Array">Harris et al. (<a href="#ref-2020NumPy-Array" role="doc-biblioref">2020</a>)</span>), Pandera (<span class="citation" data-cites="niels_bantilan-proc-scipy-2020">Bantilan (<a href="#ref-niels_bantilan-proc-scipy-2020" role="doc-biblioref">2020</a>)</span>), Scikit-learn (<span class="citation" data-cites="Pedregosa_Scikit-learn_Machine_Learning_2011">Pedregosa et al. (<a href="#ref-Pedregosa_Scikit-learn_Machine_Learning_2011" role="doc-biblioref">2011</a>)</span>), Pandas (<span class="citation" data-cites="The_pandas_development_team_pandas-dev_pandas_Pandas">The pandas development team (<a href="#ref-The_pandas_development_team_pandas-dev_pandas_Pandas" role="doc-biblioref">n.d.</a>)</span>), Altaire (<span class="citation" data-cites="VanderPlas2018">VanderPlas et al. (<a href="#ref-VanderPlas2018" role="doc-biblioref">2018</a>)</span>), Python (<span class="citation" data-cites="python">Van Rossum and Drake (<a href="#ref-python" role="doc-biblioref">2024</a>)</span>).</p>
 </section>
 </section>
 <section id="results" class="level2">
@@ -461,7 +461,7 @@ Table&nbsp;2: Mean cross validation scores
 <section id="visualizing-model-performance" class="level3">
 <h3 class="anchored" data-anchor-id="visualizing-model-performance">Visualizing model performance</h3>
 <section id="confusion-matrix-analysis" class="level4">
-<h4 class="anchored" data-anchor-id="confusion-matrix-analysis">Confusion Matrix Analysis</h4>
+<h4 class="anchored" data-anchor-id="confusion-matrix-analysis"><strong>Confusion Matrix Analysis</strong></h4>
 <p>The confusion matrix below illustrates how the model performed on the test data:</p>
 <div id="fig-confusion-matrix" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -473,11 +473,17 @@ Figure&nbsp;2: Confusion matrix of the best model on test data
 </figcaption>
 </figure>
 </div>
-<p><strong>Key Observations:</strong> - <strong>False Positives (65):</strong> A significant number of “Adults” were classified as “Seniors,” contributing to the low precision score. - <strong>False Negatives (175):</strong> Although fewer than the false positives, these instances highlight the need to improve recall.</p>
+<section id="key-observations" class="level5">
+<h5 class="anchored" data-anchor-id="key-observations"><strong>Key Observations</strong></h5>
+<ul>
+<li><strong>False Positives (65):</strong> A significant number of “Adults” were classified as “Seniors,” contributing to the low precision score.</li>
+<li><strong>False Negatives (175):</strong> Although fewer than the false positives, these instances highlight the need to improve recall.</li>
+</ul>
 <p>The confusion matrix (<a href="#fig-confusion-matrix" class="quarto-xref">Figure&nbsp;2</a>) showed that while the model score is 0.725, it did very poorly at recall ( 0.645 ) and quite poorly at precision (0.34 ).</p>
 </section>
+</section>
 <section id="roc-curve-and-auc" class="level4">
-<h4 class="anchored" data-anchor-id="roc-curve-and-auc">ROC Curve and AUC</h4>
+<h4 class="anchored" data-anchor-id="roc-curve-and-auc"><strong>ROC Curve and AUC</strong></h4>
 <p>The Receiver Operating Characteristic (ROC) curve for the model is presented below, with an Area Under the Curve (AUC) of <strong>0.75</strong>.</p>
 <div id="fig-roc" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -489,11 +495,18 @@ Figure&nbsp;3: ROC curve of the best model on test data
 </figcaption>
 </figure>
 </div>
-<p>This performance was reflected in the ROC curve above (<a href="#fig-roc" class="quarto-xref">Figure&nbsp;3</a>). - <strong>True Positive Rate (TPR)</strong>: Measures the proportion of correctly identified “Seniors.” - <strong>False Positive Rate (FPR):</strong> Measures the proportion of “Adults” incorrectly classified as “Seniors.” - <strong>AUC Interpretation:</strong> The AUC of 0.75 means that 75% of the time, the model ranks a randomly chosen “Senior” higher than a randomly chosen “Adult.” While this shows promise, there’s room for improvement.</p>
+<p>This performance was reflected in the ROC curve above (<a href="#fig-roc" class="quarto-xref">Figure&nbsp;3</a>).</p>
+<section id="interpretation" class="level5">
+<h5 class="anchored" data-anchor-id="interpretation"><strong>Interpretation</strong></h5>
+<ul>
+<li><strong>True Positive Rate (TPR)</strong>: Measures the proportion of correctly identified “Seniors.”</li>
+<li><strong>False Positive Rate (FPR):</strong> Measures the proportion of “Adults” incorrectly classified as “Seniors.”</li>
+<li><strong>AUC Interpretation:</strong> The AUC of 0.75 means that 75% of the time, the model ranks a randomly chosen “Senior” higher than a randomly chosen “Adult.” While this shows promise, there’s room for improvement.</li>
+</ul>
 </section>
 </section>
-<section id="model-performance-metrics" class="level3">
-<h3 class="anchored" data-anchor-id="model-performance-metrics"><strong>Model Performance Metrics</strong></h3>
+<section id="model-performance-metrics" class="level4">
+<h4 class="anchored" data-anchor-id="model-performance-metrics"><strong>Model Performance Metrics</strong></h4>
 <p>The model’s performance on the test dataset is summarized in the table below:</p>
 <table class="caption-top table">
 <thead>
@@ -525,8 +538,8 @@ Figure&nbsp;3: ROC curve of the best model on test data
 </tr>
 </tbody>
 </table>
-<section id="key-insights" class="level4">
-<h4 class="anchored" data-anchor-id="key-insights"><strong>Key Insights:</strong></h4>
+<section id="key-insights" class="level5">
+<h5 class="anchored" data-anchor-id="key-insights"><strong>Key Insights</strong></h5>
 <ul>
 <li><strong>Accuracy (0.725):</strong> Indicates that the model is correct about 72.5% of the time.</li>
 <li><strong>Precision (0.34):</strong> Shows a high rate of false positives, meaning many “Adults” are mistakenly classified as “Seniors.”</li>
@@ -534,6 +547,7 @@ Figure&nbsp;3: ROC curve of the best model on test data
 <li><strong>F1 Score (0.445):</strong> Reflects the imbalance between precision and recall, emphasizing the need for further model tuning.</li>
 <li><strong>AUC-ROC (0.75):</strong> Demonstrates that the model is better than random guessing, with a 75% chance of correctly ranking “Seniors” higher than “Adults.”</li>
 </ul>
+</section>
 </section>
 </section>
 <section id="key-takeaways-from-the-results" class="level3">
@@ -598,78 +612,7 @@ Figure&nbsp;3: ROC curve of the best model on test data
 
 <div class="quarto-listing quarto-listing-container-default" id="listing-listing">
 <div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="news,code,analysis" data-listing-date-sort="1736841600000" data-listing-file-modified-sort="1736890173617" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="7">
-<div class="thumbnail">
-<p><a href="./posts/post-with-code/index.html" class="no-external"></a></p><a href="./posts/post-with-code/index.html" class="no-external">
-<p><img loading="lazy" src="./posts/post-with-code/image.jpg" class="thumbnail-image"></p>
-</a><p><a href="./posts/post-with-code/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/post-with-code/index.html" class="no-external">Post With Code</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/post-with-code/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('news'); return false;">
-news
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('code'); return false;">
-code
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('analysis'); return false;">
-analysis
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/post-with-code/index.html" class="no-external">This is a post with executable code.</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/post-with-code/index.html" class="no-external">
-<div class="listing-date">
-Jan 14, 2025
-</div>
-<div class="listing-author">
-Harlow Malloc
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="1" data-categories="news" data-listing-date-sort="1736582400000" data-listing-file-modified-sort="1736890173615" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="32">
-<div class="thumbnail">
-<p><a href="./posts/welcome/index.html" class="no-external"></a></p><a href="./posts/welcome/index.html" class="no-external">
-<p class="card-img-top"><img src="posts/welcome/thumbnail.jpg"  class="thumbnail-image card-img"/></p>
-</a><p><a href="./posts/welcome/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/welcome/index.html" class="no-external">Welcome To My Blog</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/welcome/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('news'); return false;">
-news
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/welcome/index.html" class="no-external">This is the first post in a Quarto blog. Welcome!</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/welcome/index.html" class="no-external">
-<div class="listing-date">
-Jan 11, 2025
-</div>
-<div class="listing-author">
-Tristan O’Malley
-</div>
-</a>
-</div>
-</div>
+
 </div>
 <div class="listing-no-matching d-none">
 No matching items

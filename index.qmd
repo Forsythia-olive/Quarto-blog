@@ -69,7 +69,7 @@ The training data has `{python} n_obs` observations. Since gender, physical_acti
 
 The distributions in @fig-feat-distributions below show class imbalance, with very few seniors relative to adults in our dataset. Across numeric variables, mode values for seniors were less pronounced than they were for adults, though ranges seemed similar. Seniors seemed to have higher oral values and lower blood insulin values than adults. 
 
-![Feature Distributions by Age Group (groups are not stacked)](../results/figures/eda_histogram.png){#fig-feat-distributions width=80%}
+![Feature Distributions by Age Group (groups are not stacked)](results/figures/eda_histogram.png){#fig-feat-distributions}
 
 ### Preprocessing Steps 
 To prepare the data for analysis, we applied several cleaning and transformation steps:  
@@ -114,7 +114,7 @@ test_score_rough = round(best.score(X_test,y_test), 2) * 100
 The model's accuracy on test data was `{python} test_score`.
 
 ### Tools
-The following software packages were used in this project: @Chorev_Deepchecks_A_Library_2022, @2020NumPy-Array, @niels_bantilan-proc-scipy-2020, @Pedregosa_Scikit-learn_Machine_Learning_2011, @The_pandas_development_team_pandas-dev_pandas_Pandas, @VanderPlas2018, @python.
+The following software packages were used in this project: Deepcheck (@Chorev_Deepchecks_A_Library_2022), Numpy (@2020NumPy-Array), Pandera (@niels_bantilan-proc-scipy-2020), Scikit-learn (@Pedregosa_Scikit-learn_Machine_Learning_2011), Pandas (@The_pandas_development_team_pandas-dev_pandas_Pandas), Altaire (@VanderPlas2018), Python (@python).
 
 ## Results
 
@@ -133,29 +133,31 @@ and f1 score was `{python} f1`.
 
 ### Visualizing model performance
 
-#### Confusion Matrix Analysis
+#### **Confusion Matrix Analysis**
 The confusion matrix below illustrates how the model performed on the test data:
 
 ![Confusion matrix of the best model on test data](results/figures/Confusion_matrix.png){#fig-confusion-matrix}
 
-**Key Observations:**
+##### **Key Observations**
 - **False Positives (65):** A significant number of "Adults" were classified as "Seniors," contributing to the low precision score.
 - **False Negatives (175):** Although fewer than the false positives, these instances highlight the need to improve recall.
 
 The confusion matrix (@fig-confusion-matrix) showed that while the model score is `{python} test_score`, it did very poorly at recall ( `{python} recall` ) and quite poorly at precision (`{python} precision` ).
 
-#### ROC Curve and AUC
+#### **ROC Curve and AUC**
 
 The Receiver Operating Characteristic (ROC) curve for the model is presented below, with an Area Under the Curve (AUC) of **0.75**.
 
 ![ROC curve of the best model on test data](results/figures/ROC.png){#fig-roc}
 
 This performance was reflected in the ROC curve above (@fig-roc). 
+
+##### **Interpretation**
 - **True Positive Rate (TPR)**: Measures the proportion of correctly identified "Seniors."
 - **False Positive Rate (FPR):** Measures the proportion of "Adults" incorrectly classified as "Seniors."
 - **AUC Interpretation:** The AUC of 0.75 means that 75% of the time, the model ranks a randomly chosen "Senior" higher than a randomly chosen "Adult." While this shows promise, there's room for improvement.
 
-### **Model Performance Metrics**
+#### **Model Performance Metrics**
 The model's performance on the test dataset is summarized in the table below:
 
 | **Metric**       | **Value** |
@@ -166,7 +168,7 @@ The model's performance on the test dataset is summarized in the table below:
 | **F1 Score**      | 0.445     |
 | **AUC-ROC**       | 0.75      |
 
-#### **Key Insights:**
+##### **Key Insights**
 - **Accuracy (0.725):** Indicates that the model is correct about 72.5% of the time.
 - **Precision (0.34):** Shows a high rate of false positives, meaning many "Adults" are mistakenly classified as "Seniors."
 - **Recall (0.645):** The model successfully identifies 64.5% of actual "Seniors."
